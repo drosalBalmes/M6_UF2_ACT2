@@ -69,9 +69,9 @@ public class Connexio {
             Scanner sc = new Scanner(System.in);
             Statement st = con.createStatement();
             DatabaseMetaData dbm = con.getMetaData();
-            ResultSet tables = dbm.getTables(null, null, tableName, null);
         System.out.println("Insereix el titol de la pelicula: ");
         String titol = sc.nextLine();
+        ResultSet pelis = dbm.getTables(null, null, titol, null);
 
         System.out.println("Insereix la data d'estrena(yyyy-mm-dd): ");
         String data = scanner.next();
@@ -82,12 +82,12 @@ public class Connexio {
         ps.setString(2,data);
         ps.setString(3,pais);
 
-            if (tables.next()) {
+            if (pelis.next()) {
                 ps.executeUpdate();
                 System.out.println("Insert fet correctament");
             }
             else {
-                System.out.println("La taula " + tableName + " no existeix");
+                System.out.println("La peli " + titol + " ja existeix");
             }
         }
     public static int getColumnNames(ResultSet rs) throws SQLException {
